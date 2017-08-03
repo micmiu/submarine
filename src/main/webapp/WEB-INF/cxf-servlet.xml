@@ -1,0 +1,44 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+    <bean id="dataExchangeService" class="com.micmiu.submarine.core.api.ws.DataExchangeWsImpl">
+        <property name="apiDataService" ref="apiDataServiceImpl"/>
+    </bean>
+
+    <bean id="serverAuthHandler" class="com.micmiu.submarine.core.handler.ServerAuthHandler">
+        <property name="cacheManageService" ref="cacheManageServiceImpl"/>
+    </bean>
+
+    <bean id="wss4jInInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+        <constructor-arg>
+            <map>
+                <entry key="action" value="UsernameToken"/>
+                <entry key="passwordType" value="PasswordDigest"/>
+                <entry key="passwordCallbackRef" value-ref="serverAuthHandler"/>
+                <entry key="utTimeToLive" value="3600"/>
+                <entry key="utFutureTimeToLive" value="3600"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <jaxws:endpoint id="dataExchange" implementor="#dataExchangeService" address="/dataExchangeSimpleService">
+    </jaxws:endpoint>
+
+    <jaxws:endpoint id="dataExchangeWss" implementor="#dataExchangeService" address="/dataExchangeWssService">
+        <jaxws:properties>
+            <entry key="ws-security.timestamp.timeToLive" value="600"/>
+            <entry key="ws-security.timestamp.futureTimeToLive" value="900"/>
+        </jaxws:properties>
+        <jaxws:inInterceptors>
+            <bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor"/>
+            <ref bean="wss4jInInterceptor"/>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
+</beans>

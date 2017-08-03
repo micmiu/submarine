@@ -1,0 +1,33 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+
+# virtual machine crash logs
+hs_err_pid*
+
+
+#
+target/
+out/
+build/
+
+
+# Mac OSX
+.DS_Store
+
+
+# eclipse settings
+.settings
+.classpath*
+.project
+
+
+# idea settings
+.idea
+*.iml
+
+# 
