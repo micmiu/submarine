@@ -55,7 +55,7 @@ public class BeanXmlTest {
 		XmlMapper xml = new XmlMapper();
 		xml.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-		System.out.println(xml.writeValueAsString(MockDataUtils.mockRequest4Upload()));
+		System.out.println(xml.writeValueAsString(MockDataUtils.mockRequest("XML", "upload")));
 
 		System.out.println(xml.writeValueAsString(MockDataUtils.mockResponFail()));
 

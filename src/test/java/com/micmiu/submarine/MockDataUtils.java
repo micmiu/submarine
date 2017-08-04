@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class MockDataUtils {
 
-	public static Request mockRequest4Upload() {
+	public static Request mockRequest(String docFormat, String serviceName) {
 		Request request = new Request();
 
 		Request.Header header = request.new Header();
@@ -27,8 +27,8 @@ public class MockDataUtils {
 		header.setSign("test");
 
 		Request.Body body = request.new Body();
-		body.setDocFormat("XML");
-		body.setServiceName("upload");
+		body.setDocFormat(docFormat);
+		body.setServiceName(serviceName);
 
 		List<Map<String, String>> dataList = new ArrayList<Map<String, String>>();
 		Map<String, String> valMap = new LinkedHashMap<String, String>();
@@ -37,6 +37,7 @@ public class MockDataUtils {
 		valMap.put("CITYCODE ", "200000");
 		valMap.put("NAME ", "孙悟空");
 		valMap.put("SEX", "男");
+		valMap.put("URL", "micmiu.com");
 		dataList.add(valMap);
 
 		Map<String, String> valMap2 = new LinkedHashMap<String, String>();
@@ -46,6 +47,7 @@ public class MockDataUtils {
 		valMap2.put("NAME ", "孙小美");
 		valMap2.put("BIRTH", "201x-xx-xx");
 		valMap2.put("SEX", "女");
+		valMap.put("URL", "micmiu.com");
 		dataList.add(valMap2);
 
 		body.setDataMapList(dataList);
@@ -91,6 +93,32 @@ public class MockDataUtils {
 				"    </Body>\n" +
 				"</Request>";
 		return xml;
+	}
+
+	public static String mockJson4Reqeust() {
+		String json = "{\n" +
+				"    \"header\": {\n" +
+				"        \"reqId\": \"100001\", \n" +
+				"        \"version\": \"1.0\", \n" +
+				"        \"requestTime\": \"2012-06-07 09:28:30\", \n" +
+				"        \"appId\": \"android_7\", \n" +
+				"        \"authType\": null, \n" +
+				"        \"userName\": \"micmiu\", \n" +
+				"        \"sign\": \"3c87defa80cbee6ddc12a1d12e9a8f04\"\n" +
+				"    }, \n" +
+				"    \"body\": {\n" +
+				"        \"docFormat\": \"json\", \n" +
+				"        \"serviceName\": \"upload\", \n" +
+				"        \"dataMapList\": [\n" +
+				"            {\n" +
+				"                \"AUTHOR\": \"Michael\", \n" +
+				"                \"ROWKEY\": \"20170803001\", \n" +
+				"                \"URL\": \"micmiu.com\"\n" +
+				"            }\n" +
+				"        ]\n" +
+				"    }\n" +
+				"}";
+		return json;
 	}
 
 	public static String mockDataXmlError() {
