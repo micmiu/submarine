@@ -51,20 +51,38 @@ public class Request {
 
 	public class Header {
 
+		/**
+		 * 请求ID
+		 */
 		private String reqId;
 
+		/**
+		 * 版本号
+		 */
 		private String version;
 
+		/**
+		 * 请求时间
+		 */
 		private String requestTime;
 
+		/**
+		 * 客户端ID
+		 */
 		private String appId;
 		/**
 		 * 认证类型  0->wss  1->sign -1 不验证
 		 */
 		private String authType;
 
+		/**
+		 * 用户名
+		 */
 		private String userName;
 
+		/**
+		 * 认证签名
+		 */
 		private String sign;
 
 		public String getAuthType() {
@@ -126,11 +144,26 @@ public class Request {
 
 	public class Body {
 
+		/**
+		 * 文档类型
+		 */
 		@JacksonXmlProperty(isAttribute = true, localName = "dataFormat")
 		private String docFormat;
 
-
+		/**
+		 * 服务名称
+		 */
 		private String serviceName;
+
+		/**
+		 * 数据源类别
+		 */
+		private String dataSourceType;
+
+		/**
+		 * 表名
+		 */
+		private String tableName;
 
 		@JacksonXmlElementWrapper(localName = "dataList")
 		@JacksonXmlProperty(localName = "data")
@@ -158,6 +191,22 @@ public class Request {
 
 		public void setServiceName(String serviceName) {
 			this.serviceName = serviceName;
+		}
+
+		public String getDataSourceType() {
+			return dataSourceType;
+		}
+
+		public void setDataSourceType(String dataSourceType) {
+			this.dataSourceType = dataSourceType;
+		}
+
+		public String getTableName() {
+			return tableName;
+		}
+
+		public void setTableName(String tableName) {
+			this.tableName = tableName;
 		}
 	}
 

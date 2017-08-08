@@ -83,6 +83,8 @@ public class MockDataUtils {
 				"    </Header>\n" +
 				"    <Body DocFormat=\"XML\">\n" +
 				"        <serviceName>upload</serviceName>\n" +
+				"        <dataSourceType>demo</dataSourceType>\n" +
+				"        <tableName>t_blog</tableName>\n" +
 				"        <dataList>\n" +
 				"            <data>\n" +
 				"                <ROWKEY>123456</ROWKEY>\n" +
@@ -109,6 +111,8 @@ public class MockDataUtils {
 				"    \"body\": {\n" +
 				"        \"docFormat\": \"json\", \n" +
 				"        \"serviceName\": \"upload\", \n" +
+				"        \"dataSourceType\": \"demo\", \n" +
+				"        \"tableName\": \"t_blog\", \n" +
 				"        \"dataMapList\": [\n" +
 				"            {\n" +
 				"                \"AUTHOR\": \"Michael\", \n" +

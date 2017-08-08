@@ -11,16 +11,17 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * API 接入用户
+ * API 接入用户数据权限
  * User: <a href="http://micmiu.com">micmiu</a>
  * Date: 7/31/2017
  * Time: 00:35
  */
 @Entity
-@Table(name = "T_API_USER")
-public class ApiUser implements Serializable {
+@Table(name = "T_API_USER_PERM")
+public class ApiUserPermission implements Serializable {
 
-	private static final long serialVersionUID = 8023017191340436344L;
+	private static final long serialVersionUID = 6051018033228133103L;
+
 	private Long id;
 
 	@Id
@@ -36,14 +37,47 @@ public class ApiUser implements Serializable {
 
 	private String userName;
 
-	private String password;
+	/**
+	 * 数据源
+	 */
+	private String dsType;
 
-	public String getPassword() {
-		return password;
+	/**
+	 * 表
+	 */
+	private String tableName;
+
+	/**
+	 * 操作权限
+	 */
+	private String optPerm;
+
+	public String getDsType() {
+		return dsType;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setDsType(String dsType) {
+		this.dsType = dsType;
+	}
+
+	public String getOptPerm() {
+		return optPerm;
+	}
+
+	public void setOptPerm(String optPerm) {
+		this.optPerm = optPerm;
+	}
+
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 
 	public String getUserName() {

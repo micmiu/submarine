@@ -13,4 +13,6 @@ public interface CacheManageService {
 	void reload();
 
 	String findPassword(String userName);
+
+	boolean checkUserPerm(String key, String optPerm);
 }

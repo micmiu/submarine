@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,8 +19,9 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "T_API_OPT_LOG")
-public class ApiOptLog {
+public class ApiOptLog implements Serializable {
 
+	private static final long serialVersionUID = -8527188044694983179L;
 	private Long id;
 
 	@Id

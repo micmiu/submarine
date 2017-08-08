@@ -59,7 +59,8 @@ public class ApiDataServiceImpl implements ApiDataService {
 				return MsgOutHandler.outResponse(resp, docFormat);
 			}
 			if (DataCheckUtils.checkRequestHeader(request, resp) && DataCheckUtils.checkRequestBody(request, resp)) {
-				if ("0".equals(autheType) || "-1".equals(request.getHeader().getAuthType()) || checkAuth(request, resp)) {
+				if ("0".equals(autheType) || "-1".equals(request.getHeader().getAuthType())
+						|| (checkAuth(request, resp) && checkPerm(request, resp))) {
 					this.pushData(request, resp);
 				}
 			}
@@ -135,5 +136,24 @@ public class ApiDataServiceImpl implements ApiDataService {
 			return false;
 		}
 		return true;
+	}
+
+	private boolean checkPerm(Request resquest, Response resp) {
+		String serviceName = resquest.getBody().getServiceName();
+		String userName = resquest.getHeader().getUserName();
+		String tableName = resquest.getBody().getTableName();
+		String dsType = resquest.getBody().getDataSourceType();
+		String key = userName + ":" + dsType + ":" + tableName;
+		boolean isPerm = false;
+		if ("upload".equals(serviceName)) {
+			isPerm = cacheManageService.checkUserPerm(key, "create");
+		} else {
+			isPerm = cacheManageService.checkUserPerm(key, "read");
+		}
+		if (!isPerm) {
+			resp.setCode(Response.CODE_ERROR_802);
+			resp.setMessage("资源权限不足");
+		}
+		return isPerm;
 	}
 }
